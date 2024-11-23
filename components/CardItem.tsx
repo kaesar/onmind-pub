@@ -1,10 +1,10 @@
 import { CardProps } from "@/model";
 import Link from "next/link";
 
-export default function Card({ slug, title, description, type }: CardProps) {
+export default function CardItem({ title, description, slug, tags }: CardProps) {
   return (
     <div
-        className="group relative p-6 rounded-lg transform transition-all duration-300 hover:-translate-y-1
+      className="group relative p-6 rounded-lg transform transition-all duration-300 hover:-translate-y-1
         bg-gray-100 dark:bg-gray-900/40
         shadow-lg dark:shadow-md dark:shadow-gray-950/50
         hover:shadow-xl dark:hover:shadow-xl dark:hover:shadow-blue-500/30
@@ -12,6 +12,7 @@ export default function Card({ slug, title, description, type }: CardProps) {
         border-t-8 border-blue-200 dark:border-blue-500
         dark:ring-1 dark:ring-blue-500/50"
     >
+        {/* Subtle post-it fold effect */}
         <div className="absolute -top-[2px] -right-[2px] w-0 h-0 
             border-t-[20px] border-t-blue-200/90 dark:border-t-blue-500/90
             border-l-[20px] border-l-transparent
@@ -25,11 +26,8 @@ export default function Card({ slug, title, description, type }: CardProps) {
             <p className="mb-3 text-gray-900 dark:text-gray-300">
             {description}
             </p>
-            <p className="text-sm text-gray-700 dark:text-gray-400 mb-4">
-            {type}
-            </p>
             <Link
-            href={`/docs/sys/${slug}`}
+            href={`/docs/${slug}`}
             className="inline-block text-gray-800 dark:text-blue-300 
                 hover:text-gray-950 dark:hover:text-blue-200 
                 font-medium underline-offset-4 hover:underline
