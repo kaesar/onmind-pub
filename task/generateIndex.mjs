@@ -4,6 +4,7 @@ import matter from "gray-matter";
 
 const docsDir = process.env.PUB_HOME || 'content/docs';
 const indexPath = path.join(docsDir, process.env.INDEX_FILE || '_index.json');
+console.log('docsDir =>', docsDir);
 
 const getAllFiles = (dirPath, arrayOfFiles = []) => {
   const files = fs.readdirSync(dirPath);
