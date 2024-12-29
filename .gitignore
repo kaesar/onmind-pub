@@ -11,9 +11,9 @@ _index.json
 
 # test & build
 /coverage
-/.next/
-/out/
-/build
+/.nuxt/
+/.output/
+/dist
 *.tsbuildinfo
 
 # misc
@@ -22,12 +22,12 @@ _index.json
 /.pnp
 .pnp.js
 npm-debug.log*
+package-lock.json
 yarn-debug.log*
 yarn-error.log*
-package-lock.json
+bun.lockb
 
 # others
 .env
 .env*.local
 .vercel
-next-env.d.ts
