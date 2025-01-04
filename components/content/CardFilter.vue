@@ -71,6 +71,7 @@ const toggleTag = (tag) => {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 .tag-chip {

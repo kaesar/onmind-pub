@@ -12,6 +12,7 @@ const props = defineProps({
   }
 })
 
+const inputId = Math.random().toString(36).substring(7)
 const selectedValue = ref(props.value)
 
 const items = computed(() => {
@@ -20,8 +21,8 @@ const items = computed(() => {
 </script>
 
 <template>
-  <div>
-    <!-- <label>{{ label }}</label> -->
-    <Select v-model="selectedValue" :options="items" optionLabel="label" optionValue="value" placeholder="Select an option" class="w-full md:w-56" />
-  </div>
+  <FloatLabel class="w-full md:w-56" variant="on">
+    <Select v-model="selectedValue" :inputId="inputId"  :options="items" optionLabel="label" optionValue="value" placeholder="Select an option" />
+    <label :for="inputId">{{ label }}</label>
+  </FloatLabel>
 </template>

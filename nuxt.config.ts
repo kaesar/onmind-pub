@@ -4,10 +4,17 @@ export default defineNuxtConfig({
   // https://github.com/nuxt-themes/docus
   extends: ['@nuxt-themes/docus'],
   devtools: { enabled: true },
-  modules: ['@nuxtjs/plausible', '@nuxtjs/tailwindcss', '@primevue/nuxt-module'],
+  modules: ['@nuxtjs/plausible', '@primevue/nuxt-module'],  //, '@nuxtjs/tailwindcss'
   primevue: {
     options: {
-      theme: { preset: Material }
+      theme: {
+        preset: Material,
+        darkModeSelector: false,  // 'system'
+        cssLayer: { name: 'primevue' }
+      }
+    },
+    directives: {
+      include: ['Ripple', 'Tooltip']
     }
   },
   compatibilityDate: '2024-10-24',
@@ -23,6 +30,4 @@ export default defineNuxtConfig({
     }
   },
   runtimeConfig: { public: { docsDir:  process.env.DOCS_DIR || '/docs' } },
-  //components: [ { path: '~/components/content', extensions: ['vue'] } ],
-  //app: { head: { script: [ { src: '/cui.js', type: 'module', defer: true } ] } },
 });
