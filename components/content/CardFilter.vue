@@ -1,27 +1,6 @@
-<template>
-  <div class="card-filter">
-    <input 
-      v-model="searchQuery" 
-      type="text" 
-      placeholder="Search title..." 
-      class="search-input"
-      @input="$emit('filter', { query: searchQuery, tags: selectedTags })"
-    />
-    <div class="tags-container">
-      <button 
-        v-for="tag in availableTags" 
-        :key="tag"
-        :class="['tag-button', { 'tag-selected': selectedTags.includes(tag) }]"
-        @click="toggleTag(tag)"
-      >
-        {{ tag }}
-      </button>
-    </div>
-  </div>
-</template>
-
 <script setup>
-import { ref } from 'vue'
+// import { ref } from 'vue'
+// import { Chip } from 'primevue/chip'
 
 const props = defineProps({
   availableTags: {
@@ -44,89 +23,62 @@ const toggleTag = (tag) => {
 }
 </script>
 
+<template>
+  <div class="card-filter">
+    <input 
+      v-model="searchQuery" 
+      type="text" 
+      placeholder="Search title..." 
+      class="search-input"
+      @input="$emit('filter', { query: searchQuery, tags: selectedTags })"
+    />
+    <div class="tags-container">
+      <Chip 
+        v-for="tag in availableTags" 
+        :key="tag"
+        :label="tag"
+        :class="['tag-chip', { 'tag-selected': selectedTags.includes(tag) }]"
+        @click="toggleTag(tag)"
+      />
+    </div>
+  </div>
+</template>
+
 <style scoped>
 .card-filter {
-  @apply mb-6 space-y-4;
+  margin-bottom: 1.5rem;
+  @apply space-y-4;
 }
 
 .search-input {
-  @apply w-full p-2 border rounded-lg;
-  background-color: white;
-  border-color: rgb(209 213 219); /* border-gray-300 */
+  width: 100%;
+  padding: 0.5rem;
+  color: snow;
+  background-color: #3f3f46;
+  border: 1px solid #d1d5db; /* border-gray-300 */
+  border-radius: 0.375rem;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 
   &:focus {
-    @apply outline-none ring-2;
-    border-color: rgb(59 130 246); /* border-blue-500 */
-    ring-color: rgb(147 197 253); /* ring-blue-300 */
+    outline: none;
+    ring: 2px;
+    border-color: #3b82f6; /* border-blue-500 */
+    ring-color: #93c5fd; /* ring-blue-300 */
   }
 }
 
 .tags-container {
-  @apply flex flex-wrap gap-2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
-.tag-button {
-  @apply px-3 py-1 rounded-full text-sm transition-all duration-200;
-  
-  /* Default state */
-  background-color: rgb(229 231 235); /* bg-gray-200 */
-  color: rgb(55 65 81); /* text-gray-700 */
-
-  &:hover {
-    background-color: rgb(209 213 219); /* hover:bg-gray-300 */
-  }
-
-  /* Selected state */
-  &.tag-selected {
-    background-color: rgb(59 130 246); /* bg-blue-500 */
-    color: white;
-
-    &:hover {
-      background-color: rgb(37 99 235); /* hover:bg-blue-600 */
-    }
-  }
+.tag-chip {
+  cursor: pointer;
 }
 
-/* Dark mode styles */
-:root.dark {
-  .search-input {
-    background-color: rgb(31 41 55); /* dark:bg-gray-800 */
-    border-color: rgb(55 65 81); /* dark:border-gray-700 */
-    color: rgb(209 213 219); /* dark:text-gray-300 */
-
-    &::placeholder {
-      color: rgb(156 163 175); /* dark:placeholder-gray-400 */
-    }
-  }
-
-  .tag-button {
-    background-color: rgb(55 65 81); /* dark:bg-gray-700 */
-    color: rgb(209 213 219); /* dark:text-gray-300 */
-
-    &:hover {
-      background-color: rgb(75 85 99); /* dark:hover:bg-gray-600 */
-    }
-
-    &.tag-selected {
-      background-color: rgb(59 130 246); /* dark:bg-blue-500 */
-      color: white;
-
-      &:hover {
-        background-color: rgb(37 99 235); /* dark:hover:bg-blue-600 */
-      }
-    }
-  }
-}
-
-/* Responsive adjustments */
-@media (max-width: 640px) {
-  .search-input {
-    @apply text-sm;
-  }
-
-  .tag-button {
-    @apply text-xs px-2 py-0.5;
-  }
+.tag-selected {
+  background-color: #3b82f6; /* bg-blue-500 */
+  color: white;
 }
 </style>

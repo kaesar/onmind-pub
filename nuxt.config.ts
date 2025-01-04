@@ -24,15 +24,5 @@ export default defineNuxtConfig({
   },
   runtimeConfig: { public: { docsDir:  process.env.DOCS_DIR || '/docs' } },
   //components: [ { path: '~/components/content', extensions: ['vue'] } ],
-  app: {
-    head: {
-      script: [
-        {
-          src: '/cui.js',
-          type: 'text/javascript',
-          defer: true
-        }
-      ]
-    }
-  }
-})
+  //app: { head: { script: [ { src: '/cui.js', type: 'module', defer: true } ] } },
+});

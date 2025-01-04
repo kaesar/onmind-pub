@@ -1,20 +1,9 @@
-<template>
-  <div class="card-grid">
-    <CardFilter 
-      :available-tags="allTags" 
-      @filter="handleFilter"
-    />
-    <div class="grid">
-      <CardItem 
-        v-for="item in filteredItems" 
-        :key="item._path"
-        :item="item"
-      />
-    </div>
-  </div>
-</template>
-
 <script setup>
+// import { ref, computed } from 'vue'
+// import { useAsyncData } from '@nuxt/content'
+import CardFilter from './CardFilter.vue'
+import CardItem from './CardItem.vue'
+
 const props = defineProps({
   defaultTags: {
     type: Array,
@@ -51,6 +40,22 @@ const handleFilter = ({ query, tags }) => {
   })
 }
 </script>
+
+<template>
+  <div class="card-grid">
+    <CardFilter 
+      :available-tags="allTags" 
+      @filter="handleFilter"
+    />
+    <div class="grid">
+      <CardItem 
+        v-for="item in filteredItems" 
+        :key="item._path"
+        :item="item"
+      />
+    </div>
+  </div>
+</template>
 
 <style scoped>
 /* Grid Container */
