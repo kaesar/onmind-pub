@@ -1,4 +1,7 @@
+import path from 'path';
 import Material from '@primevue/themes/material';
+
+const contentDir = process.env.PUB_HOME || path.resolve(__dirname, 'content');
 
 export default defineNuxtConfig({
   // https://github.com/nuxt-themes/docus
@@ -22,7 +25,7 @@ export default defineNuxtConfig({
     sources: {
       content: {
         driver: 'fs',
-        base: process.env.PUB_HOME || 'content/'
+        base: contentDir
       }
     },
     highlight: {

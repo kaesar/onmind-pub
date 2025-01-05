@@ -1,5 +1,8 @@
 <script setup>
+// import { defineProps } from 'vue'
 // import { useRouter } from 'vue-router'
+// import { Button } from 'primevue/button'
+// import { useToast } from 'primevue/useToast'
 
 const props = defineProps(['label', 'link', 'message', 'theme', 'millis'])
 const toast = useToast()

@@ -4,16 +4,16 @@ Pages, Universes &amp; Blogs (PUB)
 
 You can add **MD** (Markdown) files under `content` or change this by setting the environmenta variable `PUB_HOME`
 
-## How use it
+## How to use it
 
 1. Clone the repository: `git clone https://github.com/kaesar/onmind-pub.git pub`
-2. Open the folder, e.g.: `pub/content/`
-3. Write your content starting with `index.md` (see example)
-4. Generate static files, e.g.: `bun run generate`
+2. Open the folder and install modules, e.g.: `cd pub && npm install`
+3. Write your content starting with `content/index.md` (see example)
+4. Generate static files, e.g.: `bun run build`
 5. Check with local preview: `bun run preview`
 
 > You can use `npm` instead of `bun`.  
-> For `bun`, remeber check if it is installed.  
+> For `bun`, remember check if it is installed.  
 
 ## Custom folder for content
 
@@ -31,6 +31,8 @@ source .env
 ```
 
 ## index.md example
+
+Inside the `content` folder we can put an `index.md` like this:
 
 ```markdown
 ---
