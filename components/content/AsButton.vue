@@ -6,13 +6,16 @@ const toast = useToast()
 const router = useRouter()
 
 const navigateToItem = () => {
-  router.push(props.link)
+    if (props.link?.startsWith('http'))
+        window.open(props.link, '_blank');
+    else
+        router.push(props.link);  // location.assign(props.link)
 }
 
 function handleButton () {
-    //console.log(props.link || props.message)
+    console.log(props.link || props.url)
     if (!!props.link)
-        navigateToItem();  // location.assign(props.link)
+        navigateToItem();
     else if (!!props.message)
         toast.add({
             severity: 'info',

@@ -25,6 +25,14 @@ export default defineNuxtConfig({
         base: process.env.PUB_HOME || 'content/'
       }
     },
+    highlight: {
+      theme: {
+          default: 'github-light',
+          dark: 'github-dark',
+          sepia: 'monokai'
+      },
+      langs: ['javascript', 'typescript', 'json', 'bash', 'shell', 'html', 'xml', 'css', 'scss', 'yaml', 'markdown', 'java', 'python', 'php', 'sql', 'ruby', 'perl', 'c', 'cpp', 'csharp', 'go', 'rust', 'swift', 'kotlin', 'groovy', 'scala', 'lua', 'r', 'dart', 'swift', 'typescript', 'jsx', 'tsx', 'graphql', 'dockerfile']
+    },
     markdown: {
       mdc: true,
     }
