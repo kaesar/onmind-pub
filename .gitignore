@@ -1,19 +1,15 @@
 # deps
 /node_modules
-/content/docs/*
-/content/docs/sys/*
-_index.json
+/content/docs
 
 # generated content
-.contentlayer
-.content-collections
-.source
+/content/.vitepress/cache
+/content/.vitepress/dist
+/.vitepress/cache
+/.vitepress/dist
 
 # test & build
 /coverage
-/.nuxt/
-/.output/
-/dist
 *.tsbuildinfo
 
 # misc
@@ -30,4 +26,3 @@ bun.lockb
 # others
 .env
 .env*.local
-.vercel

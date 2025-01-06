@@ -1,26 +1,16 @@
 {
   "name": "onmind-pub",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "nuxi dev",
-    "build": "nuxi build",
-    "generate": "nuxi generate",
-    "preview": "nuxi preview",
-    "lint": "eslint ."
+    "start": "vitepress dev",
+    "index": "node task/indexing.js",
+    "docs:dev": "vitepress dev",
+    "docs:build": "node task/indexing.js && vitepress build",
+    "docs:preview": "vitepress preview"
   },
   "devDependencies": {
-    "@nuxt-themes/docus": "latest",
-    "@nuxt/devtools": "^1.6.0",
-    "@nuxt/eslint-config": "^0.6.1",
-    "@nuxtjs/plausible": "^1.0.3",
-    "@primevue/nuxt-module": "^4.2.5",
-    "@types/node": "^22.9.0",
-    "eslint": "^9.14.0",
-    "nuxt": "^3.14.159"
-  },
-  "dependencies": {
-    "@primevue/themes": "^4.2.5",
-    "primevue": "^4.2.5"
+    "vitepress": "^1.5.0"
   }
 }
