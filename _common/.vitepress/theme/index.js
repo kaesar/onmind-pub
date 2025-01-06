@@ -5,10 +5,10 @@ import Layout from './Layout.vue'
 //import './my-element.js'
 
 import AsAccess from '../snippets/AsAccess.vue'
-import AsButton from '../snippets/AsButton.vue'
 import AsModal from '../snippets/AsModal.vue'
 import AsCover from '../snippets/AsCover.vue'
 import AsIndex from '../snippets/AsIndex.vue'
+//import AsButton from '../snippets/AsButton.vue'
 //import AuthBox from '../snippets/auth-box.ce.vue'
 //import AuthForgot from '../snippets/auth-forgot.ce.vue'
 //import AuthLogin from '../snippets/auth-login.ce.vue'
@@ -25,10 +25,10 @@ export default {
     extends: DefaultTheme,
     enhanceApp({ app }) {
         app.component('AsAccess', AsAccess)
-        app.component('AsButton', AsButton)
         app.component('AsModal', AsModal)
         app.component('AsCover', AsCover)
         app.component('AsIndex', AsIndex)
+        //app.component('AsButton', AsButton)
         //app.component('AuthBox', AuthBox)
         //app.component('AuthForgot', AuthForgot)
         //app.component('AuthLogin', AuthLogin)
