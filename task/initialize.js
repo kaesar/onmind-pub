@@ -57,14 +57,15 @@ const package_json = `{
 }`;
 
 rl.question('Enter the name of the new subdirectory inside of "sites": ', (newFolder) => {
-    const basePath = path.join('sites', newFolder);
-    const vitepressPath = path.join(basePath, '.vitepress');
+    const dot_env = `PUB_ROOT=sites/${newFolder}\nPUB_SOURCE=/docs`;
+    const rootPath = path.join('sites', newFolder);
+    const vitepressPath = path.join(rootPath, '.vitepress');
     const themePath = path.join(vitepressPath, 'theme');
-    const docsPath = path.join(basePath, 'docs');
+    const docsPath = path.join(rootPath, process.env.PUB_SOURCE || 'docs');
     const publicPath = path.join(docsPath, 'public');
-    console.log(`Creating subfolder "${newFolder}"...\n`, basePath, vitepressPath, themePath, docsPath, publicPath);
+    console.log(`Creating subfolder "${newFolder}"...\n`, rootPath, vitepressPath, themePath, docsPath, publicPath);
 
-    fs.mkdirSync(basePath,      { recursive: true });
+    fs.mkdirSync(rootPath,      { recursive: true });
     fs.mkdirSync(vitepressPath, { recursive: true });
     fs.mkdirSync(themePath,     { recursive: true });
     fs.mkdirSync(docsPath,      { recursive: true });
@@ -73,7 +74,8 @@ rl.question('Enter the name of the new subdirectory inside of "sites": ', (newFo
     fs.writeFileSync(path.join(vitepressPath, 'config.mjs'), config_mjs);
     fs.writeFileSync(path.join(themePath, 'index.js'), index_js);
     fs.writeFileSync(path.join(docsPath, 'index.md'), index_md);
-    fs.writeFileSync(path.join(basePath, 'package.json'), package_json);
+    fs.writeFileSync(path.join(rootPath, 'package.json'), package_json);
+    fs.writeFileSync(path.join(rootPath, '.env'), dot_env);
 
     console.log(`The subfolder "${newFolder}" has been created succesfully under "sites".`);
 

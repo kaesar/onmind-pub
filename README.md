@@ -2,7 +2,7 @@
 
 Pages, Universes &amp; Blogs (**PUB**): An static site generator (SSG) using [**VitePress**](https://vitepress.dev/) and customized with **OnMind** theme shared for several projects. Thinking in a **CMS** (Content Management System) for super simples but powered sites.
 
-You can add `.md` (Markdown) files under `sites/*/docs` or change this by setting the environment variable `PUB_ROOT`
+You can add `.md` (Markdown) files under `sites/*/docs` or change this by setting the environment variable `PUB_SOURCE` (and `PUB_ROOT`)
 
 ## Why is based on VitePress
 
@@ -31,6 +31,8 @@ Once you donwload and setup the project, you can think in a workflow where the f
 5. Build to generate the output or distribution files
 6. Preview the content project
 7. Publish the content project
+
+> It's important for commands, consider to use **macOS**, **Linux**, **bash** or **WSL**
 
 ## How is this project organized or estructured
 
@@ -85,16 +87,18 @@ This project is based on [**VitePress**](https://vitepress.dev/) and keep its fe
 You can change the `sites/blog/docs` folder by using another path. First include a `.env` file and the `PUB_ROOT` variable like this:
 
 ```bash
-PUB_ROOT=sites/blog/docs
+PUB_ROOT=sites/blog
+PUB_SOURCE=/docs
 ```
 
-Then, load the file or set the variable in the environment. Example:
+Then, set the variable in the environment. Example for **macOS**, **Linux**, **bash**, **WSL**:
 
 ```bash
-source .env
+export $(grep -v '^#' .env | xargs)
 ```
 
-> Or just set this directly from command line with: `export PUB_ROOT=sites/blog/docs`
+> Or just set this directly from command line with: `export PUB_ROOT=sites/blog && export PUB_SOURCE=/docs`  
+> For **Windows** use the `set` command, e.g.: `set PUB_ROOT=sites/blog`
 
 ## About sites folder
 
@@ -139,6 +143,8 @@ Essentialy, in your content folder, for example `sites/blog`, you have al least 
 2. `sites/blog/.vitepress/config.mjs`
 3. `sites/blog/.vitepress/theme/index.js`
 4. `sites/blog/package.json`
+
+> Additionaly, you can have a `.env` file with `PUB_ROOT` and `PUB_SOURCE` variables and run `export $(grep -v '^#' .env | xargs)` from a bash terminal
 
 ### index.md example
 

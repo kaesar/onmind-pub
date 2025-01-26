@@ -1,10 +1,10 @@
 import { defineConfig } from 'vitepress'
+import path from 'path';
 
 export default defineConfig({
   title: "OnMind-PUB",
   description: "Pages | Universes | Blogs: This is a great place by OnMind-PUB",
   srcDir: srcDir,
-  ignoreDeadLinks: true,
   themeConfig: {
     sidebar: [],
     aside: false,
@@ -15,8 +15,8 @@ export default defineConfig({
   vue: vueOptions
 });
 
-const srcDir = (process.env.PUB_ROOT || 'sites/blog/docs').split('/').pop();
-console.log('srcDir =>', srcDir);
+const srcDir = (process.env.PUB_SOURCE || 'docs').replace(/^\//, '');
+console.log('srcDir =>', srcDir, process.env.PUB_ROOT, process.env.PUB_SOURCE);
 
 const nav = [
   // { text: 'Access', link: '/access' }

@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-const rootContentDir = process.env.PUB_ROOT || 'sites/blog/docs';
+const rootContentDir = path.join(process.env.PUB_ROOT || 'sites/blog', process.env.PUB_SOURCE || 'docs');
 console.log('rootContentDir =>', rootContentDir);
 
 function setPairs (lines, keySeparator) {  // For fixing key/value pairs
