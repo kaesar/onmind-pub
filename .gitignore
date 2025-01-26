@@ -1,12 +1,10 @@
 # deps
 /node_modules
-/content/docs
+/sites
+/common/.vitepress/theme/userbase.config.js
 
 # generated content
-/content/.vitepress/cache
-/content/.vitepress/dist
-/.vitepress/cache
-/.vitepress/dist
+/.vitepress
 
 # test & build
 /coverage
@@ -21,7 +19,7 @@ npm-debug.log*
 package-lock.json
 yarn-debug.log*
 yarn-error.log*
-bun.lockb
+bun.lock*
 
 # others
 .env

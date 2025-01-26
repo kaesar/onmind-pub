@@ -5,12 +5,13 @@
   "type": "module",
   "scripts": {
     "start": "vitepress dev",
+    "init": "node task/initialize.js",
     "index": "node task/indexing.js",
     "docs:dev": "vitepress dev",
     "docs:build": "node task/indexing.js && vitepress build",
     "docs:preview": "vitepress preview"
   },
   "devDependencies": {
-    "vitepress": "^1.5.0"
+    "vitepress": "^1.6.3"
   }
 }

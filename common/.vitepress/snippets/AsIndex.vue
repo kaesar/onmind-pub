@@ -123,8 +123,8 @@ input {
 
 .showcase {
     display: grid;
-    padding-left: 12rem;
-    padding-right: 12rem;
+    padding-left: 0rem;
+    padding-right: 0rem;
     gap: 1.5rem;
     grid-auto-rows: 12rem;
     grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));

@@ -1,7 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 
-const rootContentDir = process.env.PUB_ROOT || 'content/docs';
+const rootContentDir = process.env.PUB_ROOT || 'sites/blog/docs';
+console.log('rootContentDir =>', rootContentDir);
 
 function setPairs (lines, keySeparator) {  // For fixing key/value pairs
     let key = null;
@@ -94,7 +95,7 @@ function pushArticles(directory, file, filePath, articles) {
             articles.push({ title, description, tags, hide, notable, filename, grade, category, language, url });
     }
     catch (e) {
-        console.log(`Error de FrontMatter en: ${filePath} ~> ${e.message}`);
+        console.error(`Error! FrontMatter in: ${filePath} ~> ${e.message}`);
     }
 }
 
@@ -106,6 +107,12 @@ function pushArticles(directory, file, filePath, articles) {
  */
 function readArticles(directory) {
     const articles = [];
+
+    if (!fs.existsSync(directory)) {
+        console.error(`Error! Directory not found: ${directory}`);        
+        return articles;
+    }
+    
     const files = fs.readdirSync(directory);
 
     for (const file of files) {
@@ -129,6 +136,10 @@ function readArticles(directory) {
  * @return {void} 
  */
 function generateIndex(articles) {
+    if (articles.length === 0) {
+        console.error('Error! No articles found.');
+        return;
+    }
     const indexContent = JSON.stringify(articles, null, 2);
     fs.writeFileSync(path.join(rootContentDir, 'public', '_index.json'), indexContent);
 }
