@@ -56,6 +56,19 @@ const package_json = `{
   }
 }`;
 
+const dot_gitignore = `.nojekyll
+.DS_Store
+*.lock*
+/.vitepress/cache
+/.vitepress/dist
+/.obsidian
+/docs/.obsidian
+/node_modules
+package-lock.json
+bun.lock
+site.zip
+.env*`;
+
 rl.question('Enter the name of the new subdirectory inside of "sites": ', (newFolder) => {
     const dot_env = `PUB_ROOT=sites/${newFolder}\nPUB_SOURCE=/docs`;
     const rootPath = path.join('sites', newFolder);
@@ -75,6 +88,7 @@ rl.question('Enter the name of the new subdirectory inside of "sites": ', (newFo
     fs.writeFileSync(path.join(themePath, 'index.js'), index_js);
     fs.writeFileSync(path.join(docsPath, 'index.md'), index_md);
     fs.writeFileSync(path.join(rootPath, 'package.json'), package_json);
+    fs.writeFileSync(path.join(rootPath, '.gitignore'), dot_gitignore);
     fs.writeFileSync(path.join(rootPath, '.env'), dot_env);
 
     console.log(`The subfolder "${newFolder}" has been created succesfully under "sites".`);
