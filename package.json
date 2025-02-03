@@ -7,11 +7,13 @@
     "start": "vitepress dev",
     "init": "node task/initialize.js",
     "index": "node task/indexing.js",
+    "zip": "node task/zipping.js",
     "docs:dev": "vitepress dev",
     "docs:build": "node task/indexing.js && vitepress build",
     "docs:preview": "vitepress preview"
   },
   "devDependencies": {
-    "vitepress": "^1.6.3"
+    "vitepress": "1.6.1",
+    "adm-zip": "^0.5.16"
   }
 }
