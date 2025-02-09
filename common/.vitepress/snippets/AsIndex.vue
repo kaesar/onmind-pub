@@ -62,16 +62,16 @@ onMounted(() => {
     .then(res => res.json())
     .then(data => {
         //const lang = location.href.split('/');
+        //console.log(data);
         const list = data
-            .filter( e => ['code','devops','api'].includes(e.category.toLowerCase())
+            .filter(e => !e.hide )
                 //&& e.language === lang[lang.length - 2]
                 //&& e.category.toLowerCase() === 'code'
-                && !e.hide )
             .sort((a, b) => a.title.localeCompare(b.title));
-        index.value = list
-        result.value = list
-        allTags.value = [...new Set(list.flatMap(item => item.tags || []))]
-
+        
+        index.value = list;
+        result.value = list;
+        allTags.value = [...new Set(list.flatMap(item => item.tags || []))];
     })
     .catch(err => {
         console.error(err.message);

@@ -86,13 +86,25 @@ function pushArticles(directory, file, filePath, articles) {
         const grade = (path.length > 3) ? path.length - 4 : 0;
         const category = (['en','es'].includes(path[path.length - 1])) ? path[path.length - 2] : path[path.length - 1];
         const language = (['en','es'].includes(path[path.length - 1])) ? path[path.length - 1] : getKV(fm, 'language');
-        const tags = getKV(fm, 'tags') || category;
-        const url = (['en','es'].includes(path[path.length - 1])) ? path[path.length - 2] + '/' + path[path.length - 1] + '/' + filename :
+        const tags = (new Set(getKV(fm, 'tags')?.split(',').map(tag => tag.trim()) || [])).add(category);
+        const url = (['en','es'].includes(path[path.length - 1])) ?
+            path[path.length - 2] + '/' + path[path.length - 1] + '/' + filename :
             path[path.length - 1] + '/' + filename;
         //const url = (['en','es'].includes(path[path.length - 1])) ? '/doc/' + path[path.length - 2] + '/' + path[path.length - 1] + '/' + filename + '.md' :
         //    '/doc/' + path[path.length - 1] + '/' + filename + '.md';
         if (filename !== '_index')
-            articles.push({ title, description, tags, hide, notable, filename, grade, category, language, url });
+            articles.push({
+                title,
+                description,
+                tags: Array.from(tags),
+                hide,
+                notable,
+                filename,
+                grade,
+                category,
+                language,
+                url
+            });
     }
     catch (e) {
         console.error(`Error! FrontMatter in: ${filePath} ~> ${e.message}`);
