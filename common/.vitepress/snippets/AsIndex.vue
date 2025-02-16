@@ -4,7 +4,7 @@ const props = defineProps(['filtering','title'])
 const index = ref([])
 const result = ref([])
 const searchQuery = ref('')
-const selectedTags = ref(['code'])
+const selectedTags = ref([])  // 'code'
 const allTags = ref([])
 
 function onRow(e) {
@@ -71,7 +71,7 @@ onMounted(() => {
         
         index.value = list;
         result.value = list;
-        allTags.value = [...new Set(list.flatMap(item => item.tags || []))];
+        allTags.value = [...new Set(list.flatMap(item => item.tags || []))].sort();
     })
     .catch(err => {
         console.error(err.message);
