@@ -42,3 +42,11 @@ as-box {
     display: none;
 }
 */
+
+@media print {
+  .VPNav,
+  .VPLocalNav,
+  .VPDocFooter {
+    display: none !important;
+  }
+}
