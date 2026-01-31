@@ -23,19 +23,6 @@ function onFilter(e) {
     e.preventDefault()
     searchQuery.value = e.target.value
     filterResults()
-    /*let value = e.target.value
-    let which = e.which
-
-    if (value.length > 0 ) {  // getMatch(value)
-        result.value = index.value?.filter((row) => {
-            const exp = new RegExp(value,'gi')  // INITIALS: RegExp(`^${bit}`,'gi')
-            return (exp.test(row.title) || exp.test(row.description) || exp.test(row.tags))
-        })
-    }
-    else
-        result.value = index.value  // .filter(e => (e.notable))
-
-    return true*/
 }
 
 const toggleTag = (tag) => {

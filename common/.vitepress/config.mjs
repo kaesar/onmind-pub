@@ -1,5 +1,4 @@
 import { defineConfig } from 'vitepress'
-import path from 'path';
 
 export default defineConfig({
   title: "OnMind-PUB",

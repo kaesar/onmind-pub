@@ -40,14 +40,6 @@ function readArticles(directory, baseDir = directory) {
 }
 
 const articles = readArticles(rootContentDir);
-/*
-const aboutPath = path.join(rootContentDir, 'about.md');
-let aboutContent = '';
-if (fs.existsSync(aboutPath)) {
-    const content = fs.readFileSync(aboutPath, 'utf-8');
-    aboutContent = '\n\n<div style="page-break-before: always;"></div>\n\n' + content.replace(/^---[\s\S]*?---\n/, '');
-}
-*/
 const tocContent = `---
 title: Table of Contents
 ---

@@ -60,8 +60,10 @@ This project is based on [**VitePress**](https://vitepress.dev/) and keep its fe
 │⋅⋅⋅⋅⋅│⋅⋅└─ index.md  
 │⋅⋅⋅⋅⋅└─ package.json  
 ├─ task  
-│⋅⋅├─ initialize.js  
-│⋅⋅└─ indexing.js  
+│⋅⋅├─ initialize.js (init)  
+│⋅⋅├─ indexing.js (index)  
+│⋅⋅├─ zipping.js (zip)  
+│⋅⋅└─ pdf.js (pdf)  
 └─ package.json  
 ```
 
@@ -80,7 +82,9 @@ This project is based on [**VitePress**](https://vitepress.dev/) and keep its fe
 > For `bun`, remember check if it is installed.  
 
 - There is a task called `init` to initilize new project under `sites` folder.  
-- There is a task called `index` to generate `public/_index.json` file. For example: `bun run index`.  
+- There is a task called `index` to generate `public/_index.json` file. For example: `bun run index`.
+- There is a task called `zip` to compress the project in a `site.zip` file.
+- There is a task called `pdf` to generate PDF from the site.  
 
 ## Custom folder for sites
 
@@ -219,7 +223,8 @@ Additionaly, you have `package.json` file inside the content folder like this:
     "start": "vitepress dev",
     "docs:dev": "vitepress dev",
     "docs:build": "vitepress build",
-    "docs:preview": "vitepress preview"
+    "docs:preview": "vitepress preview",
+    "docs:pdf": "press-export-pdf export ./"
   }
 }
 ```
