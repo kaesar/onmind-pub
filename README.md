@@ -4,6 +4,8 @@ Pages, Universes &amp; Blogs (**PUB**): An static site generator (SSG) using [**
 
 You can add `.md` (Markdown) files under `sites/*/docs` or change this by setting the environment variable `PUB_SOURCE` (and `PUB_ROOT`)
 
+[🎬 *See video in YouTube...* ![See video in YouTube](https://img.youtube.com/vi/mr4_bsewxmw/maxresdefault.jpg)](https://www.youtube.com/watch?v=mr4_bsewxmw)
+
 ## Why is based on VitePress
 
 Before, I tried with several technologies like **NextJS**, **NuxtJS**, **11ty** (Eleventy), **Astro Starlight**, **Hugo** (even my own CMS inside **OnMind** platform), I found [**VitePress**](https://vitepress.dev/) great fit because I want simplicity (and DX) to generate static sites fast with good look and standards for web (e.g. JAM Stack & Vite).
@@ -15,12 +17,17 @@ Before, I tried with several technologies like **NextJS**, **NuxtJS**, **11ty** 
 3. Tasks (e.g. init, index).
 4. Web components.
 5. Some style.
-6. Bun environment (optional but preferable).
+6. **Bun** environment (optional but preferable).
 7. Workflow proposed.
+
+**Bun** is just a way to run **Javascript** in the terminal with better performance.  
+
+> To install **Bun** for **macOS/Linux** run: `curl -fsSL https://bun.sh/install | bash`  
+> To install **Bun** for **Windows** run: `powershell -c "irm bun.sh/install.ps1 | iex"`
 
 ## The Workflow proposed for OnMind-PUB
 
-Once you donwload and setup the project, you can think in a workflow where the files are edited in a tool like [**Obsidian**](https://obsidian.md/download) (or another Markdown editor), then you cand build the project and check with preview mode, finally publish the changes (in remote repository or deploy it). This is:
+Once you donwload and setup the project, you can think in a workflow where the files are edited in a tool like [**Obsidian**](https://obsidian.md/download) (or another **Markdown** editor), then you cand build the project and check with preview mode, finally publish the changes (in remote repository or deploy it). This is:
 
 > `init` ~> `open-editor` ~> `edit` ~> `index` ~> `build` ~> `preview` ~> `publish`
 
@@ -32,14 +39,15 @@ Once you donwload and setup the project, you can think in a workflow where the f
 6. Preview the content project
 7. Publish the content project
 
-> It's important for commands, consider to use **macOS**, **Linux**, **bash** or **WSL**
+> It's important for commands, consider to use **macOS**, **Linux**, **bash** or **WSL** (Windows Subsystem for Linux)
 
 ## How is this project organized or estructured
 
 This project is based on [**VitePress**](https://vitepress.dev/) and keep its features but is focused in several subprojects of content. Its directories tree looks like this:
 
 ```txt
-* pub  
+  ______
+./ pub / 
 ├─ common  
 │⋅⋅├─ .vitepress  
 │⋅⋅│⋅⋅├─ snippets  
@@ -56,19 +64,21 @@ This project is based on [**VitePress**](https://vitepress.dev/) and keep its fe
 │⋅⋅⋅⋅⋅├─ docs  
 │⋅⋅⋅⋅⋅│⋅⋅├─ public  
 │⋅⋅⋅⋅⋅│⋅⋅│⋅⋅├─ _index.json  
-│⋅⋅⋅⋅⋅│⋅⋅│⋅⋅└─ favicon.ico  
+│⋅⋅⋅⋅⋅│⋅⋅│⋅⋅├─ _favicon.ico  
+│⋅⋅⋅⋅⋅│⋅⋅│⋅⋅└─ page/  
 │⋅⋅⋅⋅⋅│⋅⋅└─ index.md  
 │⋅⋅⋅⋅⋅└─ package.json  
 ├─ task  
 │⋅⋅├─ initialize.js (init)  
 │⋅⋅├─ indexing.js (index)  
 │⋅⋅├─ zipping.js (zip)  
+│⋅⋅├─ toc.js (toc)  
 │⋅⋅└─ pdf.js (pdf)  
 └─ package.json  
 ```
 
 > Note that the `common` folder is for share the `theme` and `snippets` (web components).  
-> Inside `sites` folder, the `docs` folder contains the Markdown files, and it also has `public` assets.
+> Inside `sites` folder, the `docs` folder contains the Markdown files, and it also has `public` assets (e.g. `page` for `html`, etc.)
 
 ## How to use it
 
@@ -79,12 +89,13 @@ This project is based on [**VitePress**](https://vitepress.dev/) and keep its fe
 5. Check with local preview: `bun run preview`
 
 > You can use `npm` instead of `bun`.  
-> For `bun`, remember check if it is installed.  
+> For `bun`, check if it is installed or run: `curl -fsSL https://bun.sh/install | bash`
 
 - There is a task called `init` to initilize new project under `sites` folder.  
 - There is a task called `index` to generate `public/_index.json` file. For example: `bun run index`.
 - There is a task called `zip` to compress the project in a `site.zip` file.
-- There is a task called `pdf` to generate PDF from the site.  
+- There is a task called `toc` to generate **TOC** file.
+- There is a task called `pdf` to generate **PDF** from the site.  
 
 ## Custom folder for sites
 
@@ -117,17 +128,12 @@ mkdir -p sites/blog/docs
 mkdir -p sites/blog/docs/public
 ```
 
+> To get this instead...
+
 You can initilizae a new site just executing:
 
 ```bash
 bun run init
-```
-
-You can also initialize the configuration opening the content folder like `sites/blog` from a terminal and executing the next sentence (under that folder):
-
-```bash
-cd sites/blog
-npx vitepress init
 ```
 
 Once you have files like `index.md`, `config.mjs` and `index.js` inside `sites/blog` you can execute:
@@ -172,12 +178,6 @@ hero:
 
 > Note that `AsIndex` put an agile filter by titles
 
-<!--
-Additionally, you can add an `access.md` file like this:
-
-```markdown
-```
--->
 ### .vitepress/config.mjs example
 
 For every project folder under `sites`, you can add the `.vitepress/config.mjs` file like this:

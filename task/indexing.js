@@ -2,7 +2,8 @@ import fs from 'fs';
 import path from 'path';
 
 const rootContentDir = path.join(process.env.PUB_ROOT || 'sites/blog', process.env.PUB_SOURCE || 'docs');
-console.log('rootContentDir =>', rootContentDir);
+const docsDir = rootContentDir.split('/')?.[2];
+console.log('rootContentDir =>', rootContentDir, `[${docsDir}]`);
 
 function setPairs (lines, keySeparator) {  // For fixing key/value pairs
     let key = null;
@@ -84,14 +85,14 @@ function pushArticles(directory, file, filePath, articles) {
         const filename = file.slice(0, -3); // Remove '.md' extension
         const path = directory.replace(new RegExp('\\\\','g'), '/').split('/');
         const grade = (path.length > 3) ? path.length - 4 : 0;
-        const category = (['en','es'].includes(path[path.length - 1])) ? path[path.length - 2] : path[path.length - 1];
+        const category = (['en','es'].includes(path[path.length - 1])) ? path[path.length - 2] : path[path.length - 1].replace(docsDir,'');
         const language = (['en','es'].includes(path[path.length - 1])) ? path[path.length - 1] : getKV(fm, 'language');
-        const tags = (new Set(getKV(fm, 'tags')?.split(',').map(tag => tag.trim()) || [])).add('[' + category + ']');
+        const tags = new Set(getKV(fm, 'tags')?.split(',').map(tag => tag.trim()) || []);
+        if (!!category)
+            tags.add('[' + category + ']');
         const url = (['en','es'].includes(path[path.length - 1])) ?
             path[path.length - 2] + '/' + path[path.length - 1] + '/' + filename :
-            path[path.length - 1] + '/' + filename;
-        //const url = (['en','es'].includes(path[path.length - 1])) ? '/doc/' + path[path.length - 2] + '/' + path[path.length - 1] + '/' + filename + '.md' :
-        //    '/doc/' + path[path.length - 1] + '/' + filename + '.md';
+            (path[path.length - 1] + '/' + filename).replace(docsDir,'.');
         if (filename !== '_index')
             articles.push({
                 title,
@@ -101,7 +102,7 @@ function pushArticles(directory, file, filePath, articles) {
                 notable,
                 filename,
                 grade,
-                category,
+                category: (category.length === 0) ? null : category,
                 language,
                 url
             });
