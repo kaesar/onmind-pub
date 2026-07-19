@@ -1,21 +1,8 @@
 import fs from 'fs';
 import path from 'path';
+import { readFileFrontmatter } from './lib/frontmatter.js';
 
 const rootContentDir = path.join(process.env.PUB_ROOT || 'sites/blog', process.env.PUB_SOURCE || 'docs');
-
-function getFrontmatter(content) {
-    const lines = content.toString('utf8').split('\n');
-    if (lines[0] !== '---') return null;
-    const fm = [];
-    for (let i = 1; i < lines.length; i++) {
-        if (lines[i] === '---') break;
-        fm.push(lines[i]);
-    }
-    return Object.fromEntries(fm.map(line => {
-        const [key, ...value] = line.split(':');
-        return [key.trim(), value.join(':').trim()];
-    }));
-}
 
 function readArticles(directory, baseDir = directory) {
     const articles = [];
@@ -29,8 +16,7 @@ function readArticles(directory, baseDir = directory) {
         if (stats.isDirectory()) {
             articles.push(...readArticles(filePath, baseDir));
         } else if (path.extname(file) === '.md' && !['index.md', '_index.md', '_sidebar.md', 'README.md', `about.md`, 'toc.md'].includes(file) && !file.startsWith('Trivia-')) {
-            const content = fs.readFileSync(filePath, 'utf-8');
-            const fm = getFrontmatter(content);
+            const fm = readFileFrontmatter(filePath);
             const title = fm?.title || file.replace('.md', '');
             const relativePath = path.relative(baseDir, filePath).replace(/\\/g, '/').replace('.md', '');
             articles.push({ title, path: relativePath });

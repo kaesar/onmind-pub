@@ -1,7 +1,6 @@
 {
   "name": "onmind-pub",
-  "version": "0.7.0",
-  "private": true,
+  "version": "0.8.0",
   "type": "module",
   "scripts": {
     "start": "vitepress dev",
@@ -12,11 +11,13 @@
     "pdf": "bun task/toc.js && bun task/pdf.js",
     "docs:dev": "vitepress dev",
     "docs:build": "bun task/indexing.js && vitepress build",
-    "docs:preview": "vitepress preview"
+    "docs:preview": "vitepress preview",
+    "publish": "bun task/publish.js"
   },
   "devDependencies": {
     "vitepress": "1.6.1",
     "vitepress-export-pdf": "^1.0.0",
-    "adm-zip": "^0.5.17"
+    "adm-zip": "^0.5.17",
+    "wrangler": "^4.0.0"
   }
 }

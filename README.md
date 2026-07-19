@@ -37,7 +37,7 @@ Once you donwload and setup the project, you can think in a workflow where the f
 4. Index the content (it is launched internally with build step also)
 5. Build to generate the output or distribution files
 6. Preview the content project
-7. Publish the content project
+7. Publish the content project (e.g. to Cloudflare Pages)
 
 > It's important for commands, consider to use **macOS**, **Linux**, **bash** or **WSL** (Windows Subsystem for Linux)
 
@@ -96,6 +96,45 @@ This project is based on [**VitePress**](https://vitepress.dev/) and keep its fe
 - There is a task called `zip` to compress the project in a `site.zip` file.
 - There is a task called `toc` to generate **TOC** file.
 - There is a task called `pdf` to generate **PDF** from the site.  
+
+### Publish to Cloudflare Pages
+
+Each site builds into `sites/<site>/.vitepress/dist`. To publish it to [Cloudflare Pages](https://pages.cloudflare.com/) run, from the site folder:
+
+```bash
+bun run docs:publish
+```
+
+This calls `wrangler pages deploy` with the project name taken from the site's `.env` (`PUB_CF_PROJECT`). You need a Cloudflare API token in the environment:
+
+```bash
+export CLOUDFLARE_API_TOKEN=your_token
+```
+
+Optional variables in the site `.env`:
+
+| Variable | Meaning |
+|----------|---------|
+| `PUB_CF_PROJECT` | Cloudflare Pages project name (defaults to the site folder name) |
+| `PUB_CF_BRANCH` | Branch/preview name passed to `wrangler` (e.g. `main`) |
+
+> Publishing requires the `dist` folder, so run `docs:build` first (or it fails with a clear message).
+
+### Optional userbase auth
+
+The [userbase.com](https://userbase.com/) auth SDK is **not** injected by default. To enable it on a specific site, set `PUB_USERBASE` in that site's `.env`:
+
+```bash
+PUB_USERBASE=1
+```
+
+Without it, no third-party script is loaded and protected pages (`hide: 1`/`hide: 2` in frontmatter) simply stay blurred or redirect, since no session exists.
+
+### Shared OnMind-CUI (`cui.js`)
+
+The [`cui.js` (**OnMind-CUI**)](https://github.com/kaesar/onmind-cui) library has a single source of truth at `common/public/cui/cui.js`. At build time, `build-site.js` copies it to `sites/<site>/docs/public/cui.js` (the file the theme loads), and the shared theme injects `/cui.js` in every site's `<head>`. This keeps one canonical build and avoids drift between sites.
+
+> The copy under `sites/*/docs/public/cui.js` is generated — edit `common/public/cui/cui.js` instead.
 
 ## Custom folder for sites
 
@@ -222,8 +261,9 @@ Additionaly, you have `package.json` file inside the content folder like this:
   "scripts": {
     "start": "vitepress dev",
     "docs:dev": "vitepress dev",
-    "docs:build": "vitepress build",
+    "docs:build": "bun ../../task/build-site.js sites/know",
     "docs:preview": "vitepress preview",
+    "docs:publish": "bun ../../task/publish.js sites/know",
     "docs:pdf": "press-export-pdf export ./"
   }
 }

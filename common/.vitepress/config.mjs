@@ -43,17 +43,22 @@ const head = [
   ],
   [
     'script',
-    {
-      type: 'text/javascript',
-      src: 'https://sdk.userbase.com/2/userbase.js'
-    }
-  ],
-  [
-    'script',
     { type: 'text/javascript', defer: true },
     `window.onload = () => { let div = document.createElement('div'); div.setAttribute("id", "modal"); document.body.appendChild(div); }`
   ]
 ];
+
+// userbase.js (external auth SDK) is opt-in. Set PUB_USERBASE in the site's
+// .env to enable it; otherwise no third-party script is injected.
+if (process.env.PUB_USERBASE) {
+  head.push([
+    'script',
+    {
+      type: 'text/javascript',
+      src: 'https://sdk.userbase.com/2/userbase.js'
+    }
+  ]);
+}
 
 const vueOptions = {
   template: {

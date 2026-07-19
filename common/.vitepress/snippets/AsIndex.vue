@@ -42,18 +42,21 @@ const filterResults = () => {
     })
 }
 
+function currentLang() {
+    const seg = location.pathname.split('/').filter(Boolean)
+    const lang = seg.find(s => ['en', 'es'].includes(s))
+    return lang || null
+}
+
 onMounted(() => {
     let uri = '/_index.json'
+    const lang = currentLang()
 
     fetch(uri)
     .then(res => res.json())
     .then(data => {
-        //const lang = location.href.split('/');
-        //console.log(data);
         const list = data
-            .filter(e => !e.hide )
-                //&& e.language === lang[lang.length - 2]
-                //&& e.category.toLowerCase() === 'code'
+            .filter(e => !e.hide && (!lang || !e.language || e.language === lang))
             .sort((a, b) => a.title.localeCompare(b.title));
         
         index.value = list;

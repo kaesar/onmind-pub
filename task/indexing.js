@@ -1,7 +1,12 @@
 import fs from 'fs';
 import path from 'path';
 
-const rootContentDir = path.join(process.env.PUB_ROOT || 'sites/blog', process.env.PUB_SOURCE || 'docs');
+if (!process.env.PUB_ROOT) {
+    console.error('Error: PUB_ROOT variable is undefined, it needs to be assigned (e.g. `export PUB_ROOT=sites/blog`).');
+    process.exit(1);
+}
+
+const rootContentDir = path.join(process.env.PUB_ROOT, process.env.PUB_SOURCE || 'docs');
 const docsDir = rootContentDir.split('/')?.[2];
 console.log('rootContentDir =>', rootContentDir, `[${docsDir}]`);
 
@@ -150,11 +155,12 @@ function readArticles(directory) {
  */
 function generateIndex(articles) {
     if (articles.length === 0) {
-        console.error('Error! No articles found.');
-        return;
+        console.error('Error! No articles found in:', rootContentDir);
+        process.exit(1);
     }
     const indexContent = JSON.stringify(articles, null, 2);
     fs.writeFileSync(path.join(rootContentDir, 'public', '_index.json'), indexContent);
+    console.log(`Index generated with ${articles.length} articles at ${path.join(rootContentDir, 'public', '_index.json')}`);
 }
 
 const articles = readArticles(rootContentDir);
