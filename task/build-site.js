@@ -43,7 +43,7 @@ if (!process.env.PUB_SOURCE) {
 
 // Copy the shared OnMind-CUI build (single source of truth) into the site's
 // public folder. Generated at build time; do not edit the copy under sites/.
-const cuiSrc = path.join(repoRoot, 'common', 'public', 'cui', 'cui.js');
+const cuiSrc = path.join(repoRoot, 'common', 'public', 'cui.js');
 const cuiDestDir = path.join(sitePath, 'docs', 'public');
 if (fs.existsSync(cuiSrc)) {
     fs.mkdirSync(cuiDestDir, { recursive: true });

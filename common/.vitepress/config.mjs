@@ -21,6 +21,26 @@ const nav = [
   // { text: 'Access', link: '/access' }
 ];
 
+import { createRequire } from 'module'
+import fs from 'fs'
+import path from 'path'
+
+// Load a site's nav from its own .vitepress/site.config.js. The data lives per
+// site (it changes per site); common only provides the loader. Falls back to an
+// empty nav when the file is missing or PUB_ROOT is unset.
+export function loadSiteNav(siteRoot = process.env.PUB_ROOT) {
+  if (!siteRoot) return []
+  const cfg = path.join(siteRoot, '.vitepress', 'site.config.js')
+  if (!fs.existsSync(cfg)) return []
+  try {
+    const require = createRequire(import.meta.url)
+    const mod = require(cfg)
+    return mod.nav || []
+  } catch {
+    return []
+  }
+}
+
 const search = {
   provider: 'local',
   options: {

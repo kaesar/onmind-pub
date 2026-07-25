@@ -43,37 +43,37 @@ Once you donwload and setup the project, you can think in a workflow where the f
 
 ## How is this project organized or estructured
 
-This project is based on [**VitePress**](https://vitepress.dev/) and keep its features but is focused in several subprojects of content. Its directories tree looks like this:
+This project is based on [**VitePress** v1.6](https://vitepress.dev/) and keep its features but is focused in several subprojects of content. Its directories tree looks like this:
 
 ```txt
   ______
 ./ pub / 
 ├─ common  
-│⋅⋅├─ .vitepress  
-│⋅⋅│⋅⋅├─ snippets  
-│⋅⋅│⋅⋅├─ theme  
-│⋅⋅│⋅⋅│⋅⋅└─ index.js  
-│⋅⋅│⋅⋅└─ config.mjs  
-│⋅⋅└─ index.md  
+│  ├─ .vitepress  
+│  │  ├─ snippets  
+│  │  ├─ theme  
+│  │  │  └─ index.js  
+│  │  └─ config.mjs  
+│  └─ index.md  
 ├─ sites  
-│⋅⋅└─ blog  
-│⋅⋅⋅⋅⋅├─ .vitepress  
-│⋅⋅⋅⋅⋅│⋅⋅├─ theme  
-│⋅⋅⋅⋅⋅│⋅⋅│⋅⋅└─ index.js  
-│⋅⋅⋅⋅⋅│⋅⋅└─ config.mjs  
-│⋅⋅⋅⋅⋅├─ docs  
-│⋅⋅⋅⋅⋅│⋅⋅├─ public  
-│⋅⋅⋅⋅⋅│⋅⋅│⋅⋅├─ _index.json  
-│⋅⋅⋅⋅⋅│⋅⋅│⋅⋅├─ _favicon.ico  
-│⋅⋅⋅⋅⋅│⋅⋅│⋅⋅└─ page/  
-│⋅⋅⋅⋅⋅│⋅⋅└─ index.md  
-│⋅⋅⋅⋅⋅└─ package.json  
+│  └─ blog  
+│     ├─ .vitepress  
+│     │  ├─ theme  
+│     │  │  └─ index.js  
+│     │  └─ config.mjs  
+│     ├─ docs  
+│     │  ├─ public  
+│     │  │  ├─ _index.json  
+│     │  │  ├─ _favicon.ico  
+│     │  │  └─ page/  
+│     │  └─ index.md  
+│     └─ package.json  
 ├─ task  
-│⋅⋅├─ initialize.js (init)  
-│⋅⋅├─ indexing.js (index)  
-│⋅⋅├─ zipping.js (zip)  
-│⋅⋅├─ toc.js (toc)  
-│⋅⋅└─ pdf.js (pdf)  
+│  ├─ initialize.js (init)  
+│  ├─ indexing.js (index)  
+│  ├─ zipping.js (zip)  
+│  ├─ toc.js (toc)  
+│  └─ pdf.js (pdf)  
 └─ package.json  
 ```
 
@@ -132,9 +132,9 @@ Without it, no third-party script is loaded and protected pages (`hide: 1`/`hide
 
 ### Shared OnMind-CUI (`cui.js`)
 
-The [`cui.js` (**OnMind-CUI**)](https://github.com/kaesar/onmind-cui) library has a single source of truth at `common/public/cui/cui.js`. At build time, `build-site.js` copies it to `sites/<site>/docs/public/cui.js` (the file the theme loads), and the shared theme injects `/cui.js` in every site's `<head>`. This keeps one canonical build and avoids drift between sites.
+The [`cui.js` (**OnMind-CUI**)](https://github.com/kaesar/onmind-cui) library has a single source of truth at `common/public/cui.js`. At build time, `build-site.js` copies it to `sites/<site>/docs/public/cui.js` (the file the theme loads), and the shared theme injects `/cui.js` in every site's `<head>`. This keeps one canonical build and avoids drift between sites.
 
-> The copy under `sites/*/docs/public/cui.js` is generated — edit `common/public/cui/cui.js` instead.
+> The copy under `sites/*/docs/public/cui.js` is generated — edit `common/public/cui.js` instead.
 
 ## Custom folder for sites
 

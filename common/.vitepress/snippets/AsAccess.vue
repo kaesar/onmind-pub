@@ -18,7 +18,7 @@ function Notify() {
 
 onMounted(() => {
     //console.log(frontmatter.value?.outline, theme.value?.outline)
-    if (frontmatter.value?.hide === 1 || frontmatter.value?.hide === 2) {
+    if (frontmatter.value?.hide === 2) {
         const containerElement = document.querySelector('.VPDoc')
         if (!!containerElement && !!containerElement.style) {
             containerElement.style.filter = 'blur(5px)'

@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
-const props = defineProps(['filtering','title'])
+const props = defineProps(['filtering','title','lang'])
 const index = ref([])
 const result = ref([])
 const searchQuery = ref('')
@@ -43,6 +43,9 @@ const filterResults = () => {
 }
 
 function currentLang() {
+    if (props.lang) {
+        return props.lang
+    }
     const seg = location.pathname.split('/').filter(Boolean)
     const lang = seg.find(s => ['en', 'es'].includes(s))
     return lang || null
