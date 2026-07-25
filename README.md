@@ -130,11 +130,22 @@ PUB_USERBASE=1
 
 Without it, no third-party script is loaded and protected pages (`hide: 1`/`hide: 2` in frontmatter) simply stay blurred or redirect, since no session exists.
 
-### Shared OnMind-CUI (`cui.js`)
+### Shared OnMind-CUI (`cui.js`) — **Core dependency for all sites**
 
-The [`cui.js` (**OnMind-CUI**)](https://github.com/kaesar/onmind-cui) library has a single source of truth at `common/public/cui.js`. At build time, `build-site.js` copies it to `sites/<site>/docs/public/cui.js` (the file the theme loads), and the shared theme injects `/cui.js` in every site's `<head>`. This keeps one canonical build and avoids drift between sites.
+The [`cui.js` (**OnMind-CUI**)](https://github.com/kaesar/onmind-cui) is the **shared web component library** that **all sites depend on**. It has automatic dark/light mode via VitePress/Astro/system preference and provides:
 
-> The copy under `sites/*/docs/public/cui.js` is generated — edit `common/public/cui.js` instead.
+- **Form components**: `as-form`, `as-input`, `as-select`, `as-checkbox`, `as-switch`, `as-date`, `as-time`, `as-complete`, `as-upload`, `as-radio`, `as-text`
+- **Layout/Modal**: `as-modal`, `as-box`, `as-cover`
+- **Data display**: `as-index`, `as-datagrid`, `as-image`, `as-video`, `as-embed`
+- **Interaction**: `as-button`, `as-confirm`, `as-event`, `as-popup`
+
+**Single source of truth:** `common/public/cui.js` (built from [OnMind-CUI repo](https://github.com/kaesar/onmind-cui)).
+
+**Build-time distribution:** `build-site.js` copies `common/public/cui.js` → `sites/<site>/docs/public/cui.js` for each site.
+
+**Runtime:** The shared theme (`common/.vitepress/theme/index.js`) injects `<script type="module" src="/cui.js">` in `<head>`, registering all `<as-*>` custom elements globally.
+
+> **Edit `common/public/cui.js`** (rebuild CUI first) — the copies under `sites/*/docs/public/cui.js` are generated artifacts.
 
 ## Custom folder for sites
 
@@ -212,10 +223,10 @@ hero:
       text: About
       link: /about
 ---
-<AsIndex filtering="true" />
+<as-index src="/_index.json" filtering title="Articles" />
 ```
 
-> Note that `AsIndex` put an agile filter by titles
+> Note that `<as-index>` is a **web component** from OnMind-CUI (`cui.js`) — it provides search, tag filtering, and language filtering out of the box.
 
 ### .vitepress/config.mjs example
 
@@ -261,10 +272,12 @@ Additionaly, you have `package.json` file inside the content folder like this:
   "scripts": {
     "start": "vitepress dev",
     "docs:dev": "vitepress dev",
-    "docs:build": "bun ../../task/build-site.js sites/know",
+    "docs:build": "bun ../../task/build-site.js <site-name>",
     "docs:preview": "vitepress preview",
-    "docs:publish": "bun ../../task/publish.js sites/know",
+    "docs:publish": "bun ../../task/publish.js <site-name>",
     "docs:pdf": "press-export-pdf export ./"
   }
 }
 ```
+
+> Replace `<site-name>` with your site folder name (e.g. `blog`, `know`).

@@ -18,3 +18,5 @@ features:
   - title: Content anywhere
     details: Zero config for static generation to deploy on cloud or web hosting.
 ---
+
+<as-index src="/_index.json" filtering title="Articles" />
