@@ -34,7 +34,7 @@ Object.assign(process.env, siteEnv);
 
 // Ensure PUB_ROOT/PUB_SOURCE are set (fallback to the site folder itself).
 if (!process.env.PUB_ROOT) {
-    process.env.PUB_ROOT = path.relative(repoRoot, sitePath);
+    process.env.PUB_ROOT = sitePath;
     console.log(`PUB_ROOT not set, defaulting to ${process.env.PUB_ROOT}`);
 }
 if (!process.env.PUB_SOURCE) {

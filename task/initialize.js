@@ -47,14 +47,61 @@ hero:
 `;
 
 const package_json = `{
+  "type": "module",
   "scripts": {
     "start": "vitepress dev",
     "docs:dev": "vitepress dev",
     "docs:build": "bun ../../task/build-site.js ${newFolder}",
     "docs:preview": "vitepress preview",
     "docs:publish": "bun ../../task/publish.js ${newFolder}"
+  },
+  "devDependencies": {
+    "inquirer": "^12.0.0"
   }
 }`;
+
+const pub_js = `#!/usr/bin/env node
+
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { execSync } from 'child_process';
+import inquirer from 'inquirer';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, 'package.json'), 'utf-8'));
+const scripts = pkg.scripts || {};
+
+const choices = Object.entries(scripts).map(([name, cmd]) => ({
+  name: \`\${name}  →  \${cmd}\`,
+  value: name,
+}));
+
+if (choices.length === 0) {
+  console.log('No scripts found in package.json');
+  process.exit(0);
+}
+
+console.log('\\n  OnMind-PUB - Workflow\\n');
+
+const { script } = await inquirer.prompt([
+  {
+    type: 'list',
+    name: 'script',
+    message: 'Choice:',
+    choices,
+    pageSize: 20,
+  },
+]);
+
+console.log(\`\\n▶ Excecuting: bun run \${script}\\n\`);
+
+try {
+  execSync(\`bun run \${script}\`, { cwd: __dirname, stdio: 'inherit' });
+} catch {
+  process.exit(1);
+}
+`;
 
 const dot_gitignore = `.nojekyll
 .DS_Store
@@ -90,6 +137,8 @@ rl.question('Enter the name of the new subdirectory inside of "sites": ', (newFo
     fs.writeFileSync(path.join(themePath, 'index.js'), index_js);
     fs.writeFileSync(path.join(docsPath, 'index.md'), index_md);
     fs.writeFileSync(path.join(rootPath, 'package.json'), package_json);
+    fs.writeFileSync(path.join(rootPath, 'pub.js'), pub_js);
+    fs.chmodSync(path.join(rootPath, 'pub.js'), 0o755);
     fs.writeFileSync(path.join(rootPath, '.gitignore'), dot_gitignore);
     fs.writeFileSync(path.join(rootPath, '.env'), dot_env);
 

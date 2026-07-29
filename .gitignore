@@ -2,6 +2,7 @@
 /node_modules
 /sites
 /rag
+/ide
 /common/.vitepress/theme/userbase.config.js
 
 # generated content

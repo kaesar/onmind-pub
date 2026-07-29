@@ -96,8 +96,8 @@ function pushArticles(directory, file, filePath, articles) {
         if (!!category)
             tags.add('[' + category + ']');
         const url = (['en','es'].includes(path[path.length - 1])) ?
-            path[path.length - 2] + '/' + path[path.length - 1] + '/' + filename :
-            (path[path.length - 1] + '/' + filename).replace(docsDir,'.');
+            '/' + path[path.length - 2] + '/' + path[path.length - 1] + '/' + filename :
+            '/' + (path[path.length - 1] + '/' + filename).replace(docsDir,'.');
         if (filename !== '_index')
             articles.push({
                 title,
