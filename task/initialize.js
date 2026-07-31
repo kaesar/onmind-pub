@@ -43,7 +43,7 @@ hero:
       text: About
       link: /about
 ---
-<AsIndex filtering="true" />
+<as-index src="/_index.json" filtering title="Articles" />
 `;
 
 const package_json = `{

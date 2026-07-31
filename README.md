@@ -14,7 +14,7 @@ Before, I tried with several technologies like **NextJS**, **NuxtJS**, **11ty** 
 
 1. Focus in several subprojects of content.
 2. Shared custom theme.
-3. Tasks (e.g. init, index).
+3. Tasks (e.g. init, index, publish).
 4. Web components.
 5. Some style.
 6. **Bun** environment (optional but preferable).
@@ -37,7 +37,7 @@ Once you donwload and setup the project, you can think in a workflow where the f
 4. Index the content (it is launched internally with build step also)
 5. Build to generate the output or distribution files
 6. Preview the content project
-7. Publish the content project (e.g. to Cloudflare Pages)
+7. Publish the content project (Cloudflare Pages)
 
 > It's important for commands, consider to use **macOS**, **Linux**, **bash** or **WSL** (Windows Subsystem for Linux)
 
@@ -71,6 +71,7 @@ This project is based on [**VitePress** v1.6](https://vitepress.dev/) and keep i
 ├─ task  
 │  ├─ initialize.js (init)  
 │  ├─ indexing.js (index)  
+│  ├─ publish.js (publish)  
 │  ├─ zipping.js (zip)  
 │  ├─ toc.js (toc)  
 │  └─ pdf.js (pdf)  
@@ -93,7 +94,8 @@ This project is based on [**VitePress** v1.6](https://vitepress.dev/) and keep i
 
 - There is a task called `init` to initilize new project under `sites` folder.  
 - There is a task called `index` to generate `public/_index.json` file. For example: `bun run index`.
-- There is a task called `zip` to compress the project in a `site.zip` file.
+- There is a task called `publish` to upload the site to **Cloudflare Pages**
+- There is a task called `zip` to compress the project in a `site.zip` file (for other hosting).
 - There is a task called `toc` to generate **TOC** file.
 - There is a task called `pdf` to generate **PDF** from the site.  
 
@@ -122,7 +124,7 @@ Optional variables in the site `.env`:
 
 ### Optional userbase auth
 
-The [userbase.com](https://userbase.com/) auth SDK is **not** injected by default. To enable it on a specific site, set `PUB_USERBASE` in that site's `.env`:
+The [Userbase](https://userbase.com/) auth **SDK** is **not** injected by default. To enable it on a specific site, set `PUB_USERBASE` in that site's `.env`:
 
 ```bash
 PUB_USERBASE=1
@@ -332,7 +334,7 @@ Additionaly, you have `package.json` file inside the content folder like this:
 }
 ```
 
-> Replace `<site-name>` with your site folder name (e.g. `blog`, `know`).
+> Translate `<site-name>` as your site folder name (e.g. `blog`, `know`).
 
 ### Interactive workflow menu (`pub.js`)
 

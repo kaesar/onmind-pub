@@ -106,8 +106,7 @@ const head = [
     'script',
     {
       type: 'module',
-      src: '/cui.js',
-      defer: ''
+      src: '/cui.js'
     },
   ],
 ]
